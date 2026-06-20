@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korelee | Ankara'nın Premium Kore Mutfağı</title>
+    <meta name="description" content="Çankaya/Ankara'da otantik Kore mutfağı. Bulgogi, Kimbap, Bibimbap, Rabokki, Bingsu ve daha fazlası.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Black+Han+Sans&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --neon-pink: #FF1493;
+            --neon-purple: #9400D3;
+            --neon-blue: #00BFFF;
+            --neon-cyan: #00FFFF;
+            --dark-bg: #0a0a0f;
+            --dark-purple: #1a0a2e;
+            --gold: #FFD700;
+            --white: #FFFFFF;
+            --text-light: rgba(255, 255, 255, 0.8);
+            --shadow-neon: 0 0 30px rgba(255, 20, 147, 0.5);
+            --shadow-neon-blue: 0 0 30px rgba(0, 191, 255, 0.5);
+            --gradient-neon: linear-gradient(135deg, #FF1493 0%, #9400D3 50%, #00BFFF 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--dark-bg);
+            color: var(--white);
+            overflow: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Black Han Sans', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .korean-font {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* Full Screen Sections Container */
+        .sections-container {
+            height: 100vh;
+            position: relative;
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .section {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Vertical Navigation Dots */
+        .nav-dots {
+            position: fixed;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-dot::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            white-space: nowrap;
+            font-size: 0.85rem;
+            color: var(--white);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .nav-dot:hover::before {
+            opacity: 1;
+        }
+
+        .nav-dot.active {
+            background: var(--neon-pink);
+            box-shadow: 0 0 15px var(--neon-pink);
+            transform: scale(1.3);
+        }
+
+        /* Arrow Navigation */
+        .nav-arrows {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-arrow {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--white);
+            font-size: 1.2rem;
+        }
+
+        .nav-arrow:hover {
+            background: var(--neon-pink);
+            border-color: var(--neon-pink);
+            box-shadow: var(--shadow-neon);
+            transform: scale(1.1);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+            padding: 1.5rem 3rem;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 20, 147, 0.2);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 2rem;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 20, 147, 0.5);
+        }
+
+        .logo-sub {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+            letter-spacing: 3px;
+        }
+
+        .btn-reserve {
+            background: var(--gradient-neon);
+            color: var(--white);
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-neon);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .btn-reserve:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(255, 20, 147, 0.7);
+        }
+
+        /* Section 1: Hero */
+        .hero {
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.7), rgba(26, 10, 46, 0.8)), 
+                        url('https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 20, 147, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 191, 255, 0.2) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 1000px;
+            padding: 0 2rem;
+        }
+
+        .hero-korean {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .hero h1 {
+            font-size: 7rem;
+            margin-bottom: 1.5rem;
+            line-height: 1;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 50px rgba(255, 20, 147, 0.5);
+            letter-spacing: 5px;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 4rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 3.5rem;
+            color: var(--neon-pink);
+            text-shadow: 0 0 30px var(--neon-pink);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Section 2: Story */
+        .story {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-purple) 100%);
+            position: relative;
+        }
+
+        .story::before {
+            content: '한국';
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 20rem;
+            color: rgba(255, 20, 147, 0.05);
+            font-weight: 900;
+        }
+
+        .story-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            padding: 0 3rem;
+        }
+
+        .story-content h2 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .story-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 2;
+        }
+
+        .story-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .story-feature {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 20, 147, 0.2);
+            transition: all 0.3s;
+        }
+
+        .story-feature:hover {
+            background: rgba(255, 20, 147, 0.1);
+            border-color: var(--neon-pink);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .story-feature i {
+            font-size: 2rem;
+            color: var(--neon-pink);
+            margin-bottom: 1rem;
+        }
+
+        .story-feature h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .story-feature p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .story-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(255, 20, 147, 0.3);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+        }
+
+        .story-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.2), rgba(0, 191, 255, 0.2));
+            pointer-events: none;
+        }
+
+        /* Section 3: Menu */
+        .menu {
+            background: var(--dark-bg);
+            position: relative;
+        }
+
+        .menu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23FF1493" fill-opacity="0.03"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
+        }
+
+        .menu-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .menu-header h2 {
+            font-size: 4rem;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .menu-category-btn {
+            padding: 0.8rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 20, 147, 0.3);
+            border-radius: 30px;
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .menu-category-btn.active,
+        .menu-category-btn:hover {
+            background: var(--gradient-neon);
+            border-color: transparent;
+            box-shadow: var(--shadow-neon);
+        }
+
+        .menu-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 0 3rem;
+        }
+
+        .menu-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 20, 147, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 20, 147, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
+        }
+
+        .menu-item:hover {
+            border-color: var(--neon-pink);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .menu-item-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-neon);
+        }
+
+        .menu-item h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            color: var(--neon-pink);
+        }
+
+        .menu-item p {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .menu-item-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--dark-bg);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Section 4: Experience */
+        .experience {
+            background: linear-gradient(135deg, var(--dark-purple) 0%, var(--dark-bg) 100%);
+            position: relative;
+        }
+
+        .experience-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .experience-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .experience-header h2 {
+            font-size: 4rem;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 191, 255, 0.2);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.4s;
+        }
+
+        .experience-card:hover {
+            border-color: var(--neon-blue);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-neon-blue);
+        }
+
+        .experience-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
+            color: var(--white);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .experience-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--neon-cyan);
+        }
+
+        .experience-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Section 5: Testimonials */
+        .testimonials {
+            background: var(--dark-bg);
+            position: relative;
+        }
+
+        .testimonials::before {
+            content: '"';
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 25rem;
+            color: rgba(255, 20, 147, 0.05);
+            line-height: 1;
+        }
+
+        .testimonials-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .testimonials-header h2 {
+            font-size: 4rem;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 20, 147, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--neon-pink);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .testimonial-stars {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 20, 147, 0.2);
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient-neon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--white);
+        }
+
+        .author-info h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--neon-pink);
+            font-weight: 600;
+        }
+
+        .author-info span {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Section 6: Contact */
+        .contact {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-purple) 100%);
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            padding: 0 3rem;
+        }
+
+        .contact-info h2 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-info > p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            line-height: 2;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 20, 147, 0.2);
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            border-color: var(--neon-pink);
+            transform: translateX(10px);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .contact-icon {
+            width: 55px;
+            height: 55px;
+            background: var(--gradient-neon);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-neon);
+        }
+
+        .contact-text h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+            color: var(--neon-pink);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .contact-text p, .contact-text a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .contact-text a:hover {
+            color: var(--neon-pink);
+        }
+
+        .map-wrapper {
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(255, 20, 147, 0.3);
+            height: 600px;
+            background: linear-gradient(135deg, var(--dark-purple), var(--dark-bg));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 20, 147, 0.2);
+        }
+
+        .map-placeholder {
+            text-align: center;
+            color: var(--white);
+            padding: 2rem;
+        }
+
+        .map-placeholder i {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            color: var(--neon-pink);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .map-placeholder h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(20px);
+            color: var(--text-light);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 20, 147, 0.2);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social a {
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(255, 20, 147, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-pink);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .footer-social a:hover {
+            background: var(--gradient-neon);
+            border-color: transparent;
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-neon);
+        }
+
+        /* Floating WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 2.2rem;
+            line-height: 70px;
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5);
+            z-index: 1000;
+            transition: all 0.3s;
+            text-decoration: none;
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5); }
+            50% { box-shadow: 0 6px 40px rgba(37, 211, 102, 0.8); }
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15);
+            animation: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 4rem; }
+            .story-container, .contact-container { grid-template-columns: 1fr; gap: 3rem; }
+            .experience-grid { grid-template-columns: 1fr; }
+            .nav-dots { left: 15px; }
+            .nav-arrows { right: 15px; }
+            .story-content h2, .menu-header h2, .experience-header h2, .testimonials-header h2, .contact-info h2 { font-size: 2.5rem; }
+            .hero-stats { flex-direction: column; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Vertical Navigation Dots -->
+    <div class="nav-dots">
+        <div class="nav-dot active" data-index="0" data-label="Ana Sayfa"></div>
+        <div class="nav-dot" data-index="1" data-label="Hikayemiz"></div>
+        <div class="nav-dot" data-index="2" data-label="Menü"></div>
+        <div class="nav-dot" data-index="3" data-label="Deneyim"></div>
+        <div class="nav-dot" data-index="4" data-label="Yorumlar"></div>
+        <div class="nav-dot" data-index="5" data-label="İletişim"></div>
+    </div>
+
+    <!-- Arrow Navigation -->
+    <div class="nav-arrows">
+        <div class="nav-arrow" onclick="navigate(-1)">
+            <i class="fas fa-chevron-up"></i>
+        </div>
+        <div class="nav-arrow" onclick="navigate(1)">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div>
+                    <div class="logo-text">KORELEE</div>
+                    <div class="logo-sub">한국 요리</div>
+                </div>
+            </a>
+            <a href="tel:03124180688" class="btn-reserve">
+                <i class="fas fa-phone"></i> Rezervasyon
+            </a>
+        </div>
+    </header>
+
+    <!-- Sections Container -->
+    <div class="sections-container" id="sectionsContainer">
+        
+        <!-- Section 1: Hero -->
+        <section class="section hero">
+            <div class="hero-content">
+                <div class="hero-korean">안녕하세요 · Merhaba</div>
+                <h1>KORELEE</h1>
+                <p>Ankara'nın kalbinde otantik Kore mutfağı deneyimi. Bulgogi'den Bibimbap'a, Kimbap'tan Bingsu'ya... Seoul'un lezzetleri Çankaya'da.</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">4.3</div>
+                        <div class="stat-label">Google Puanı</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">8.6K+</div>
+                        <div class="stat-label">Mutlu Müşteri</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Kore Lezzeti</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Story -->
+        <section class="section story">
+            <div class="story-container">
+                <div class="story-content">
+                    <h2>Seoul'dan Ankara'ya<br>Bir Lezzet Yolculuğu</h2>
+                    <p>Korelee, Kore mutfağının zengin lezzetlerini ve kültürel mirasını Ankara'ya taşıyan premium bir restoran deneyimidir. Geleneksel tarifler, modern sunumlar ve otantik atmosfer ile her sofrayı bir kutlamaya dönüştürüyoruz.</p>
+                    <p>"Böyle farklı ve güzel lezzetleri bizlerle buluşturduğunuz için teşekkür ederiz" diyen müşterilerimiz, bizim en büyük ilham kaynağımız.</p>
+                    
+                    <div class="story-features">
+                        <div class="story-feature">
+                            <i class="fas fa-leaf"></i>
+                            <h4>Otantik Tarifler</h4>
+                            <p>Geleneksel Kore mutfağının gerçek lezzetleri</p>
+                        </div>
+                        <div class="story-feature">
+                            <i class="fas fa-star"></i>
+                            <h4>Premium Kalite</h4>
+                            <p>En taze malzemeler, özenli hazırlık</p>
+                        </div>
+                        <div class="story-feature">
+                            <i class="fas fa-heart"></i>
+                            <h4>Samimi Hizmet</h4>
+                            <p>Her misafire özel ilgi ve alaka</p>
+                        </div>
+                        <div class="story-feature">
+                            <i class="fas fa-globe-asia"></i>
+                            <h4>Kore Kültürü</h4>
+                            <p>Gerçek Kore atmosferi ve deneyimi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-image">
+                    <img src="https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Kore Mutfağı">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Menu -->
+        <section class="section menu">
+            <div class="menu-header">
+                <h2>Lezzetlerimiz</h2>
+                <p style="color: var(--text-light); font-size: 1.1rem;">Kore mutfağının en özel tatları</p>
+            </div>
+
+            <div class="menu-categories">
+                <button class="menu-category-btn active">Tümü</button>
+                <button class="menu-category-btn">Ana Yemekler</button>
+                <button class="menu-category-btn">Atıştırmalıklar</button>
+                <button class="menu-category-btn">Çorbalar</button>
+                <button class="menu-category-btn">Tatlılar</button>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <span class="menu-item-badge">Popüler</span>
+                    <div class="menu-item-icon"><i class="fas fa-drumstick-bite"></i></div>
+                    <h3>Bulgogi</h3>
+                    <p>Özel marine edilmiş ince dilimlenmiş dana eti, sebzelerle birlikte servis edilir. Kore mutfağının vazgeçilmezi.</p>
+                </div>
+
+                <div class="menu-item">
+                    <span class="menu-item-badge">Favori</span>
+                    <div class="menu-item-icon"><i class="fas fa-bowl-rice"></i></div>
+                    <h3>Bibimbap</h3>
+                    <p>Pirinç üzerine çeşitli sebzeler, et ve baharatlarla hazırlanan, karıştırılarak yenen geleneksel Kore yemeği.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>Kimbap</h3>
+                    <p>Deniz yosunu içine sarılmış pirinç, sebze ve et çeşitleri. Pratik ve lezzetli bir Kore klasiği.</p>
+                </div>
+
+                <div class="menu-item">
+                    <span class="menu-item-badge">Yeni</span>
+                    <div class="menu-item-icon"><i class="fas fa-pepper-hot"></i></div>
+                    <h3>Rabokki</h3>
+                    <p>Pirinç keki ve noodle'ın acılı-tatlı sosla buluştuğu, sokak lezzetlerinin yıldızı. "Efsane lezzet!"</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-icon"><i class="fas fa-bowl-food"></i></div>
+                    <h3>Ramyeon</h3>
+                    <p>Acılı veya sade çorba ile servis edilen Kore noodle'ı. Tavuklu, deniz ürünleri veya sebzeli seçenekler.</p>
+                </div>
+
+                <div class="menu-item">
+                    <span class="menu-item-badge">Özel</span>
+                    <div class="menu-item-icon"><i class="fas fa-dove"></i></div>
+                    <h3>1950 Tavuk</h3>
+                    <p>Özel baharatlarla marine edilmiş, çıtır çıtır kızartılmış tavuk. "Beklentimizin çok üzerinde!"</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-icon"><i class="fas fa-circle"></i></div>
+                    <h3>Mandu</h3>
+                    <p>Kore mantısı. Buharda, kızartılmış veya çorbada servis edilen, el açması hamurla hazırlanan özel lezzet.</p>
+                </div>
+
+                <div class="menu-item">
+                    <span class="menu-item-badge">Tatlı</span>
+                    <div class="menu-item-icon"><i class="fas fa-ice-cream"></i></div>
+                    <h3>Bingsu</h3>
+                    <p>Buz kırığı üzerine taze meyveler, kırmızı fasulye ve özel soslarla hazırlanan ferahlatıcı Kore tatlısı.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-item-icon"><i class="fas fa-hotdog"></i></div>
+                    <h3>Kore Hotdog</h3>
+                    <p>Çıtır kaplamalı, mozzarella peynirli veya sosisli, özel soslarla servis edilen modern Kore street food.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Experience -->
+        <section class="section experience">
+            <div class="experience-container">
+                <div class="experience-header">
+                    <h2>Korelee Deneyimi</h2>
+                    <p style="color: var(--text-light); font-size: 1.1rem;">Sadece bir yemek değil, bir kültür yolculuğu</p>
+                </div>
+
+                <div class="experience-grid">
+                    <div class="experience-card">
+                        <div class="experience-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Otantik Atmosfer</h3>
+                        <p>Seoul'un sokaklarından ilham alan, modern ve geleneksel unsurları birleştiren şık dekorasyonumuz.</p>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="experience-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Samimi Hizmet</h3>
+                        <p>"Yoğunluğa rağmen garsonlar oldukça ilgili ve kibardı" - Her misafirimiz bizim için özel.</p>
+                    </div>
+
+                    <div class="experience-card">
+                        <div class="experience-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Premium Kalite</h3>
+                        <p>"Lezzetleri, sunumları ve ürün kalitesi gerçekten takdiri hak ediyor" - Her detay özenle hazırlanır.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Testimonials -->
+        <section class="section testimonials">
+            <div class="testimonials-container">
+                <div class="testimonials-header">
+                    <h2>Müşterilerimiz Ne Diyor?</h2>
+                    <p style="color: var(--text-light); font-size: 1.1rem;">8.673+ yorum, 4.3 puan</p>
+                </div>
+
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Korelee'yi ziyaret edip peynir topları, hotdogları, mantıyı ve 1950 isimli tavuklarını denedik. Özellikle mantı ve 1950 tavukları beklentimizin çok üzerindeydi. Lezzetleri, sunumları ve ürün kalitesi gerçekten takdiri hak ediyor."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">M</div>
+                            <div class="author-info">
+                                <h4>Misafir Yorumu</h4>
+                                <span>1 Hafta Önce</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Oldukça başarılı, rabokki efsane bir lezzet. Bingsu'yu da çok beğendik. Yiyecekler damak zevkine göre değişiyor tabi, ama genel olarak çok memnun kaldık. Tekrar gelmeyi düşündüğümüz mekanlardan biri oldu."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">M</div>
+                            <div class="author-info">
+                                <h4>Melda</h4>
+                                <span>10 Yorum · 8 Fotoğraf</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Kapıda yaklaşık 30 dakika sıra bekledik ama yoğunluğa rağmen garsonlar oldukça ilgili ve kibardı. Kore mutfağını seven biri olarak genel deneyimi başarılı buldum. Kesinlikle tavsiye ederim."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">R</div>
+                            <div class="author-info">
+                                <h4>Rabia Nur</h4>
+                                <span>Yerel Rehber · 16 Yorum</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Contact -->
+        <section class="section contact">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Bizi Ziyaret Edin</h2>
+                    <p>Çankaya'nın kalbinde, Kavaklıdere'de sizi bekliyoruz. İçeride servis, paket servisi ve temassız teslimat imkanlarımızla her zaman hizmetinizdeyiz.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Adres</h4>
+                                <p>Kavaklıdere, Bestekar Cd No: 27/A<br>06900 Çankaya / Ankara</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Telefon</h4>
+                                <a href="tel:03124180688">(0312) 418 06 88</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Çalışma Saatleri</h4>
+                                <p>Her gün: 11:00 - 21:00</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Instagram</h4>
+                                <a href="#">@koreleeankara</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-wrapper">
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h3>Google Haritalar</h3>
+                        <p>WV55+XG Çankaya, Ankara</p>
+                        <a href="https://maps.google.com/?q=Kavaklıdere,+Bestekar+Cd+No:+27/A,+06900+Çankaya/Ankara" target="_blank" class="btn-reserve" style="margin-top: 2rem; font-size: 0.9rem; padding: 1rem 2rem;">
+                            <i class="fas fa-directions"></i> Yol Tarifi Al
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer (inside last section) -->
+    <footer>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="tel:03124180688"><i class="fas fa-phone"></i></a>
+        </div>
+        <p>&copy; 2024 Korelee. Tüm hakları saklıdır. | Egehan Web Tasarım ile hazırlanmıştır.</p>
+    </footer>
+
+    <a href="tel:03124180688" class="whatsapp-float" title="Hemen Ara">
+        <i class="fas fa-phone"></i>
+    </a>
+
+    <script>
+        let currentSection = 0;
+        const totalSections = 6;
+        const container = document.getElementById('sectionsContainer');
+        const dots = document.querySelectorAll('.nav-dot');
+
+        function navigate(direction) {
+            currentSection += direction;
+            if (currentSection < 0) currentSection = 0;
+            if (currentSection >= totalSections) currentSection = totalSections - 1;
+            updateSection();
+        }
+
+        function goToSection(index) {
+            currentSection = index;
+            updateSection();
+        }
+
+        function updateSection() {
+            container.style.transform = `translateY(-${currentSection * 100}vh)`;
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSection);
+            });
+        }
+
+        // Dot navigation
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                goToSection(parseInt(dot.dataset.index));
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                e.preventDefault();
+                navigate(1);
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                e.preventDefault();
+                navigate(-1);
+            }
+        });
+
+        // Mouse wheel navigation
+        let wheelTimeout;
+        document.addEventListener('wheel', (e) => {
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => {
+                if (e.deltaY > 0) {
+                    navigate(1);
+                } else {
+                    navigate(-1);
+                }
+            }, 100);
+        });
+
+        // Touch navigation for mobile
+        let touchStartY = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].clientY;
+            const diff = touchStartY - touchEndY;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    navigate(1);
+                } else {
+                    navigate(-1);
+                }
+            }
+        });
+
+        // Menu category buttons
+        const categoryBtns = document.querySelectorAll('.menu-category-btn');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
